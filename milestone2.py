@@ -25,7 +25,7 @@ def isPointincircle(point, parameters):
     if calcDistance((0,0), point) < rad:
         return True
     return False
-def chord(die_centre,die_size,parameters):
+def checkChord(die_centre,die_size,parameters):
     diameter = int(parameters['WaferDiameter'])
     rad = diameter/2
     die_width = die_size[0]
