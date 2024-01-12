@@ -5,21 +5,23 @@ import os
 def equallySpacedPoints(parameters):
         circles = []
         diameter = parameters['WaferDiameter']
-        N = parameters['NumberOfPoints']
+        no_points = parameters['NumberOfPoints']
         angle = parameters['Angle']
         center = (0,0)
         radius = diameter / 2
         angle_radians = math.radians(angle)
+        #x , y in one direction
         x = center[0] + radius * math.cos(angle_radians)
         y = center[1] + radius * math.sin(angle_radians)
         symmetric_angle_radians = math.radians(180 + angle)
+        #x,y in the opposite direction
         symmetric_x = center[0] + radius * math.cos(symmetric_angle_radians)
         symmetric_y = center[1] + radius * math.sin(symmetric_angle_radians)
         points = []
-        for i in range(N):
-            t = i / (N - 1) 
-            x_ = (1 - t) * (x) + t * symmetric_x
-            y_ = (1 - t) * (y) + t * symmetric_y
+        for i in range(no_points):
+            temp = i / (no_points - 1) 
+            x_ = (1 - temp) * (x) + temp * symmetric_x
+            y_ = (1 - temp) * (y) + temp * symmetric_y
             points.append((x_, y_))
         return points
 
