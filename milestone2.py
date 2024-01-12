@@ -25,6 +25,27 @@ def isPointincircle(point, parameters):
     if calcDistance((0,0), point) < rad:
         return True
     return False
+def chord(die_centre,die_size,parameters):
+    diameter = int(parameters['WaferDiameter'])
+    rad = diameter/2
+    die_width = die_size[0]
+    die_height = die_size[1]
+    die_top_left = (die_centre[0]-(die_width/2), die_centre[1]+(die_height/2))
+    die_top_right = (die_centre[0]+(die_width/2), die_centre[1]+(die_height/2))
+    die_bottom_left = (die_centre[0]-(die_width/2), die_centre[1]-(die_height/2))
+    die_bottom_right = (die_centre[0]+(die_width/2), die_centre[1]-(die_height/2))
+
+    x_values = [point[0] for point in [die_top_left, die_top_right, die_bottom_left, die_bottom_right]]
+    y_values = [point[1] for point in [die_top_left, die_top_right, die_bottom_left, die_bottom_right]]
+    min_x, max_x = int(min(x_values)), int(max(x_values))
+    min_y, max_y = int(min(y_values)), int(max(y_values))
+
+    points_inside = [(x, y) for x in range(min_x, max_x + 1) for y in range(min_y, max_y + 1)]
+
+    for i in points_inside:
+        if calcDistance((0,0), i)<rad:
+            return True
+    return False
 
 def isDieInCircle(die_centre,die_size):
     die_width = die_size[0]
@@ -33,7 +54,7 @@ def isDieInCircle(die_centre,die_size):
     die_top_right = (die_centre[0]+(die_width/2), die_centre[1]+(die_height/2))
     die_bottom_left = (die_centre[0]-(die_width/2), die_centre[1]-(die_height/2))
     die_bottom_right = (die_centre[0]+(die_width/2), die_centre[1]-(die_height/2))
-    if isPointincircle(die_top_left, parameters) or isPointincircle(die_top_right, parameters) or isPointincircle(die_bottom_left, parameters) or isPointincircle(die_bottom_right, parameters):
+    if isPointincircle(die_top_left, parameters) or isPointincircle(die_top_right, parameters) or isPointincircle(die_bottom_left, parameters) or isPointincircle(die_bottom_right, parameters) or chord(die_centre,die_size,parameters):
         return True
     return False
 
